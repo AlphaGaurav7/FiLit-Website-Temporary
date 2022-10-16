@@ -95,7 +95,7 @@ for (var i = 1; i <= years; i++) {
   xValues.push(i + "Y");
   baseValues.push(12 * baseInvestment * i);
   investValues.push(
-    (baseInvestment * ((Math.pow(1.01, 12 * i) - 1) * 1.01)) / 0.01 -
+    (baseInvestment * ((Math.pow(1.012, 12 * i) - 1) * 1.012)) / 0.01 -
       baseValues[i - 1]
   );
 }
@@ -149,6 +149,10 @@ myct = new Chart("myChart", {
     },
   },
 });
+var radios = document.querySelectorAll(
+  'input[type=radio][name="investment-calculator-percentage"]'
+);
+radios.forEach((radio) => radio.addEventListener("change", newGraph));
 document
   .getElementById("investment-calculator-years")
   .addEventListener("input", newGraph);
@@ -162,6 +166,11 @@ function newGraph() {
   var baseInvestment = parseInt(
     document.getElementById("investment-calculator-base-amount").value
   );
+  var percentage = parseInt(
+    document.querySelector(
+      'input[type=radio][name="investment-calculator-percentage"]:checked'
+    ).value
+  );
   xValues = [];
   baseValues = [];
   investValues = [];
@@ -169,10 +178,11 @@ function newGraph() {
     xValues.push(i + "Y");
     baseValues.push(12 * baseInvestment * i);
     investValues.push(
-      (baseInvestment * ((Math.pow(1.01, 12 * i) - 1) * 1.01)) / 0.01 -
+      (baseInvestment * ((Math.pow((1 + (percentage/1200)), 12 * i) - 1) * (1 + (percentage/1200)))) / (percentage/1200) -
         baseValues[i - 1]
     );
   }
+  console.log(percentage);
   maturityValueBox.innerText =
     "₹" + indianconversion(investValues[years - 1] + baseValues[years - 1]);
   investedValueBox.innerText = "₹" + indianconversion(baseValues[years - 1]);

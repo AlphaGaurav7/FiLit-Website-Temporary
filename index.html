@@ -9,6 +9,7 @@
       rel="shortcut icon"
       href="/static/footer-logo.svg"
       type="image/x-icon" />
+    <link rel="stylesheet" href="/static/splide.min.css" />
     <link rel="stylesheet" href="/static/index.css" />
   </head>
   <body>
@@ -94,36 +95,51 @@
         <p class="how-it-works-section-heading">How It Works</p>
       </div>
       <div class="how-it-works-section">
-        <div class="how-it-works-card">
-          <img
-            src="/static/Spend Phone Model.png"
-            class="how-it-works-phone-model"
-            alt="" />
-          <img
-            src="/static/Spend Card.png"
-            class="how-it-works-base-card"
-            alt="" />
-        </div>
-        <div class="how-it-works-card">
-          <img
-            src="/static/Save Phone Model.png"
-            class="how-it-works-phone-model"
-            alt="" />
-          <img
-            src="/static/Save Card.png"
-            class="how-it-works-base-card"
-            alt="" />
-        </div>
-        <div class="how-it-works-card">
-          <img
-            src="/static/Invest Phone Model.png"
-            class="how-it-works-phone-model"
-            alt="" />
-          <img
-            src="/static/Invest Card.png"
-            class="how-it-works-base-card"
-            alt="" />
-        </div>
+        <section
+          id="image-carousel"
+          class="splide"
+          aria-label="How It Works Demonstration">
+          <div class="splide__track">
+            <ul class="splide__list">
+              <li class="splide__slide">
+                <div class="how-it-works-card">
+                  <img
+                    src="/static/Spend Phone Model.png"
+                    class="how-it-works-phone-model"
+                    alt="" />
+                  <img
+                    src="/static/Spend Card.png"
+                    class="how-it-works-base-card"
+                    alt="" />
+                </div>
+              </li>
+              <li class="splide__slide">
+                <div class="how-it-works-card">
+                  <img
+                    src="/static/Save Phone Model.png"
+                    class="how-it-works-phone-model"
+                    alt="" />
+                  <img
+                    src="/static/Save Card.png"
+                    class="how-it-works-base-card"
+                    alt="" />
+                </div>
+              </li>
+              <li class="splide__slide">
+                <div class="how-it-works-card">
+                  <img
+                    src="/static/Invest Phone Model.png"
+                    class="how-it-works-phone-model"
+                    alt="" />
+                  <img
+                    src="/static/Invest Card.png"
+                    class="how-it-works-base-card"
+                    alt="" />
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
       </div>
     </section>
     <section class="investment-calculator-section-container">
@@ -160,6 +176,33 @@
               id="investment-calculator-years"
               oninput="updateSlider(event)"
               style="--p: 16%" />
+          </div>
+          <hr class="investment-calculator-hr" />
+          <div class="percentageselector">
+            <input
+              type="radio"
+              value="6"
+              name="investment-calculator-percentage"
+              id="investment-calculator-percentage-6" /><label
+              for="contactChoice1"
+              >6%</label
+            >
+            <input
+              type="radio"
+              value="8"
+              name="investment-calculator-percentage"
+              id="investment-calculator-percentage-8" /><label
+              for="contactChoice1"
+              >8%</label
+            >
+            <input
+              type="radio"
+              value="12"
+              name="investment-calculator-percentage"
+              id="investment-calculator-percentage-12" checked/><label
+              for="contactChoice1"
+              >12%</label
+            >
           </div>
         </div>
         <div class="investment-calculator-output-container">
@@ -377,6 +420,26 @@
       crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script src="/static/index.js"></script>
+    <script src="/static/splide.min.js"></script>
+    <script src="/static/splide-extension-intersection.min.js"></script>
+    <script>
+      var splide = new Splide("#image-carousel", {
+        perPage: 3,
+        breakpoints: {
+          900: {
+            perPage: 1,
+          },
+        },
+      });
+      splide.on("overflow", function (isOverflow) {
+        splide.options = {
+          arrows: isOverflow,
+          pagination: isOverflow,
+          drag: isOverflow,
+        };
+      });
+      splide.mount(window.splide.Extensions);
+    </script>
   </body>
 </html>
 
